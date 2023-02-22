@@ -7,11 +7,11 @@ import sys
 if __name__ == '__main__':
     user_id = sys.argv[1]
 
-    user_url='https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
-    todo_url='https://jsonplaceholder.typicode.com/todos?userId={}'.format(user_id)
+    u_url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
+    t_url = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(user_id)
 
-    user = requests.get(user_url).json()
-    todo_list = requests.get(todo_url).json()
+    user = requests.get(u_url).json()
+    todo_list = requests.get(t_url).json()
 
     completed_tasks = [task for task in todo_list if task.get('completed')]
     num_completed_tasks = len(completed_tasks)
