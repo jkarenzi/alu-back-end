@@ -3,6 +3,10 @@
 This script retrieves information about a given employee's TO DO list progress
 using the provided REST API.
 
+Modules:
+    - requests: HTTP library for making requests to the API
+    - sys: system-specific parameters and functions
+
 Usage:
     python todo.py EMPLOYEE_ID
 
@@ -10,7 +14,7 @@ Arguments:
     EMPLOYEE_ID: integer ID of the employee to retrieve TO DO list progress for
 
 Dependencies:
-    - requests
+    - requests: can be installed via pip
 
 Output:
     The script outputs information about the employee's TO DO list progress in this
@@ -28,7 +32,6 @@ Examples:
             ... (list of completed task titles)
 """
 
-import json
 import requests
 import sys
 
