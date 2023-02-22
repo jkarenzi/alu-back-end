@@ -1,10 +1,10 @@
 #!/usr/bin/python3
+"""Write a Python script that, using this REST API, for a given employee ID, returns information about his/her TO DO list progress."""
 
 import json
 import requests
 import sys
 
-"""Write a Python script that, using this REST API, for a given employee ID, returns information about his/her TO DO list progress."""
 
 if __name__ == "__main__":
         # Define the base URL for the API
