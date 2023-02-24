@@ -5,29 +5,29 @@ import csv
 import requests
 import sys
 
+
+def get_user_tasks(user_id):
+    """Retrieves user information and to-do list from API"""
+    user_url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
+    todo_url = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(user_id)
+    
+    user = requests.get(user_url).json()
+    tasks = requests.get(todo_url).json()
+    
+    return user, tasks
+
+
+def export_to_csv(user, tasks):
+    """Exports user tasks to a CSV file"""
+    filename = str(user['id']) + '.csv'
+    with open(filename, mode='w', newline='') as csv_file:
+        writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+        for task in tasks:
+            writer.writerow([user['id'], user['username'], task['completed'], task['title']])
+
+
 if __name__ == '__main__':
     user_id = sys.argv[1]
-
-    user_url = f'https://jsonplaceholder.typicode.com/users/{user_id}'
-    t = f'https://jsonplaceholder.typicode.com/todos?userId={user_id}'
-
-    user = requests.get(user_url).json()
-    todo_list = requests.get(t).json()
-
-    completed_tasks = [task for task in todo_list if task.get('completed')]
-
-    csv_filename = f'{user_id}.csv'
-
-    with open(csv_filename, mode='w') as csv_file:
-        fieldnames = ['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE']
-        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-
-        writer.writeheader()
-
-        for task in todo_list:
-            writer.writerow({
-                'USER_ID': user_id,
-                'USERNAME': user.get('username'),
-                'TASK_COMPLETED_STATUS': 'True' if task.get('completed') else 'False',
-                'TASK_TITLE': task.get('title')
-            })
+    
+    user, tasks = get_user_tasks(user_id)
+    export_to_csv(user, tasks)
