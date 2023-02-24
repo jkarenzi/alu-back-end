@@ -13,8 +13,10 @@ def get_all_user_tasks():
     users = requests.get(user_url).json()
     all_tasks = {}
     for user in users:
-        tasks_url = 'https://jsonplaceholder.typicode.com/todos?userId={}'.format(
-            user['id'])
+        tasks_url = (
+            'https://jsonplaceholder.typicode.com/todos?userId={}'
+            .format(user['id'])
+        )
         tasks = requests.get(tasks_url).json()
         all_tasks[str(user['id'])] = []
         for task in tasks:
