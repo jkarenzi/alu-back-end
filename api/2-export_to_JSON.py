@@ -9,10 +9,14 @@ import sys
 
 def get_user_tasks(user_id):
     """Retrieves user information and to-do list from API"""
-    user_url = ('https://jsonplaceholder.typicode.com/users/{}'
-                .format(user_id))
-    tasks_url = ('https://jsonplaceholder.typicode.com/todos?userId={}'
-                .format(user_id))
+    user_url = (
+        'https://jsonplaceholder.typicode.com/users/{}'
+        .format(user_id)
+    )
+    tasks_url = (
+        'https://jsonplaceholder.typicode.com/todos?userId={}'
+        .format(user_id)
+    )
     user = requests.get(user_url).json()
     tasks = requests.get(tasks_url).json()
     return user, tasks
@@ -24,8 +28,9 @@ def export_to_csv(user, tasks):
     with open(filename, mode='w', newline='') as csv_file:
         writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
         for task in tasks:
-            writer.writerow([user['id'], user['username'],
-                             task['completed'], task['title']])
+            writer.writerow([
+                user['id'], user['username'], task['completed'], task['title']
+            ])
 
 
 def export_to_json(user, tasks):
@@ -33,8 +38,12 @@ def export_to_json(user, tasks):
     filename = '{}.json'.format(user['id'])
     user_tasks = {str(user['id']): []}
     for task in tasks:
-        user_task = {'task': task['title'], 'completed': task['completed'], 'username': user['username']}
-        user_tasks[str(user['id'])].append(user_task)
+        task_data = {
+            'task': task['title'],
+            'completed': task['completed'],
+            'username': user['username']
+        }
+        user_tasks[str(user['id'])].append(task_data)
     with open(filename, mode='w') as json_file:
         json.dump(user_tasks, json_file)
 
