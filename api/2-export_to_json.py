@@ -14,7 +14,6 @@ def get_user_tasks(user_id):
     tasks = requests.get(tasks_url).json()
     return user, tasks
 
-
 def export_to_csv(user, tasks):
     """Exports user tasks to a CSV file"""
     filename = '{}.csv'.format(user['id'])
