@@ -6,7 +6,6 @@ import json
 import requests
 import sys
 
-
 def get_user_tasks(user_id):
     """Retrieves user information and to-do list from API"""
     user_url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
